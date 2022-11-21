@@ -4,7 +4,7 @@ let git = {
   // get repos by language
   'getRepos': async (language, pageNum = 1) => {
     
-    let query = 'https://api.github.com/';
+    let query = 'https://api.github.com';
     
     query += '/search/repositories' +
              '?q=language:' + language + '&page=' + pageNum + '&sort=stars&order=desc&per_page=100';
