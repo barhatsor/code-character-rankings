@@ -6,113 +6,6 @@
   <meta name="theme-color" content="#1a1c24">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,shrink-to-fit=no">
   <link rel="shortcut icon" href="https://codeit.codes/icons/app-favicon.png">
-  <style>
-  
-    @font-face {
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url('https://codeit.codes/fonts/Inter/Inter.var.woff2') format('woff2');
-      font-named-instance: 'Regular';
-    }
-
-
-    html {
-      height: 100%;
-      background: #1a1c24;
-      color: #d4d5d7;
-      font-family: 'Inter', system-ui, sans-serif;
-      text-align: center;
-    }
-    
-    body {
-      display: flex;
-      flex-flow: column;
-      margin: 0;
-      max-width: 500px;
-      margin: auto;
-      padding: 0 20px;
-    }
-    
-    .logo {
-      width: 70px;
-      border-radius: 22.5%;
-      border: 1px solid rgba(255,255,255,.1);
-      margin: 0 auto;
-      margin-bottom: 24px;
-      margin-top: 50px;
-    }
-    
-    .title {
-      font-size: 19px;
-      margin-bottom: 24px;
-      margin-top: 0;
-      position: relative;
-      text-align: center;
-    }
-    
-    .button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 15px;
-      box-sizing: border-box;
-      min-height: 40px;
-      white-space: nowrap;
-      font-size: 16px;
-      padding: 7px 84px;
-      height: 50px;
-      width: 233px;
-      font-weight: 500;
-      background: hsl(223deg 88% 52%);
-      color: #fff;
-      margin: 0 auto;
-      transition: .1s var(--ease-function);
-      transition-property: background, color;
-    }
-    
-    .button:hover {
-      background: hsl(223deg 85% 54%);
-      transition: none;
-    }
-    
-    .button:active {
-      color: rgba(255,255,255,0.25);
-      background: hsla(223deg 88% 52% / 50%) !important;
-      transition: none;
-    }
-    
-    a {
-      text-decoration: none;
-      color: hsl(223deg 86% 73%);
-    }
-    
-    a:hover {
-      text-decoration: underline;
-    }
-    
-    
-    body {
-      --ease-function: cubic-bezier(0.32, 0.08, 0.24, 1);
-    }
-    
-    html, body {
-      text-rendering: optimizeLegibility;
-      font-feature-settings: "kern";
-      -webkit-font-feature-settings: "kern";
-      touch-action: manipulation;
-      overscroll-behavior: none;
-      -webkit-touch-callout: none;
-      -webkit-font-smoothing: antialiased;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-text-size-adjust: 100%;
-      -webkit-overflow-scrolling: touch;
-      -webkit-text-size-adjust: none;
-    }
-    
-  </style>
-  
   <meta name="description" content="Every programming language uses the same set of symbols. But not every glyph's born equal. We tallied over a billion characters of open-source code to determine which are used most. And the results are in.">
 
   <meta property="og:title" content="Code Character Rankings">
@@ -134,6 +27,8 @@
   <script>if (top !== window) { window.location.href = 'https://codeit.codes/redirect' }</script>
   <script defer data-domain="rankings.codeit.codes" src="https://plausible.io/js/plausible.js"></script>
 
+  <link href="/styles.css" rel="stylesheet">
+
 </head>
 
 <body ontouchstart>
@@ -150,8 +45,8 @@ We tallied over a billion characters of open-source code to determine which are 
   <a href="/" style="color: inherit;">- ❤️ Codeit team</a>
 </p>
 
-<script src="/gitapi.js"></script>
-<script src="/rankings.js"></script>
+<script src="gitapi.js"></script>
+<script src="rankings.js"></script>
 
 </body>
 </html>
