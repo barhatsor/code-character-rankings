@@ -82,7 +82,7 @@ let rankings = {
 let gitToken = '';
 
 
-Array.prototype.asyncForEach = async (array, callback) => {
+Array.prototype.asyncForEach = async (callback) => {
   
   for (let index = 0; index < array.length; index++) {
     
