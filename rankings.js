@@ -15,7 +15,7 @@ let rankings = {
   
   repoCount: [],
   
-  apiTokens: [], // backup API tokens
+  apiTokens: [], // API tokens
   apiTokenIndex: 0,
   
   get: async (language) => {
