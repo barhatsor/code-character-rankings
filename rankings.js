@@ -3,8 +3,8 @@
  * Code Character Rankings
  *
  * Usage:
- * rankings.apiTokens = ['token1', 'backupToken2', 'backupToken3']; // more is better
- * const resp = await rankings.get('js');
+   rankings.apiTokens = ['token1', 'backupToken2', 'backupToken3']; // more is better
+   const resp = await rankings.get('js');
  *
  * Options (prefix with 'rankings.'):
  * chars - characters to search for
