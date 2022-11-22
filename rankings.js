@@ -54,9 +54,7 @@ let rankings = {
       
     }
     
-    
-    console.time('time');
-    
+        
     console.clear();
     console.log('0% / 0');
     console.log('[' + '-'.repeat(20) + ']');
@@ -96,6 +94,9 @@ let rankings = {
               
               const content = await gitRequest(git.getFileContent, [file]);
               
+              
+              // if stopped ranking, return
+              if (rankings.maxCharCount === 0) return;
               
               const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
               
@@ -220,10 +221,8 @@ Sample diversity: `+ rankings.repoCount.length +`
 `+ JSON.stringify(rankingNoCount) + `
 
 `);
-
-    console.timeEnd('time');
     
-    console.log('stats:', resp);
+    console.log('Stats:', resp);
 
     
     return resp;
