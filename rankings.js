@@ -84,7 +84,7 @@ let rankings = {
       
       let repos = await gitRequest(git.searchRepos, [language, page]);
       
-      repos.items.asyncForEach({promiseArray}, async (repo) => {
+      await repos.items.asyncForEach({sync: true}, async (repo) => {
         
         if (rankings.totalCharCount < rankings.maxCharCount) {
           
