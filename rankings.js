@@ -36,6 +36,16 @@ let rankings = {
           
           const content = await git.getFileContent(file);
           
+          
+          const percent = rankings.totalCharCount / rankings.maxCharCount * 100;
+          
+          console.clear();
+          console.log(percent + '%');
+          console.log('[' + '■'.repeat(percent / 5) + '-'.repeat((100 - percent) / 5) + ']');
+          console.log('Counting repo ' + repo.full_name);
+          console.log('﹂Counting file ' + file.name);
+          
+          
           for (let i = 0; i < content.length; i++) {
             
             if (rankings.totalCharCount < rankings.maxCharCount) {
