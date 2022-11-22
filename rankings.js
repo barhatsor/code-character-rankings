@@ -81,10 +81,10 @@ let rankings = {
             
             await promise;
             
-            const index = promiseArray.length - 1;
+            const promiseIndex = promiseArray.length - 1;
             
             // remove promise from array
-            promiseArray.splice(index, 1);
+            promiseArray.splice(promiseIndex, 1);
   
             pageNum++;
   
@@ -299,12 +299,12 @@ Array.prototype.asyncForEach = async function(options, callback) {
       
       if (options.promiseArray) options.promiseArray.push(promise);
       
-      const index = options.promiseArray.length - 1;
+      const promiseIndex = options.promiseArray.length - 1;
       
       promise.then(() => {
         
         // remove promise from array
-        options.promiseArray.splice(index, 1);
+        options.promiseArray.splice(promiseIndex, 1);
         
       });
       
