@@ -49,8 +49,9 @@ p {
   line-height: 1.5;
 }
 
-.button {
-  display: flex;
+.sidebar .button {
+  display: grid;
+  grid-auto-flow: column;
   justify-content: center;
   align-items: center;
   border-radius: 15px;
@@ -62,22 +63,41 @@ p {
   height: 50px;
   width: 233px;
   font-weight: 500;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body.mobile .sidebar .button {
+  transition: .1s var(--ease-function);
+  transition-property: background, color, box-shadow;
+}
+
+.sidebar .button.secondary {
   background: hsl(223deg 88% 52%);
   color: #fff;
-  margin: 0 auto;
-  transition: .1s var(--ease-function);
-  transition-property: background, color;
 }
 
-.button:hover {
-  background: hsl(223deg 85% 54%);
-  transition: none;
-}
-
-.button:active {
-  color: rgba(255, 255, 255, 0.25);
+.sidebar .button.secondary:active {
+  color: rgba(255,255,255,0.25);
   background: hsla(223deg 88% 52% / 50%) !important;
   transition: none;
+}
+
+.sidebar .button.teritary {
+  background: transparent;
+  color: hsl(220deg 4% 84% / 92%);
+  box-shadow: inset 0 0 0 1px hsl(228deg 16% 37%);
+}
+
+.sidebar .button.teritary:active {
+  color: hsl(220deg 4% 84% / 25%);
+  background: transparent !important;
+  box-shadow: inset 0 0 0 1px hsl(228deg 16% 37% / 50%);
+  transition: none;
+}
+
+.sidebar .button svg {
+  margin-right: var(--spacing-1);
 }
 
 a {
@@ -91,6 +111,7 @@ a:hover {
 
 
 body {
+  --spacing-1: 7px;
   --ease-function: cubic-bezier(0.32, 0.08, 0.24, 1);
 }
 
