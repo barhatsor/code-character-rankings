@@ -9,6 +9,8 @@ let rankings = {
   
   totalCharCount: 0,
   
+  repoCount: [],
+  
   getRanking: async (language) => {
     
     rankings.charCount = {};
@@ -25,6 +27,8 @@ let rankings = {
     await repos.items.asyncForEach(async (repo) => {
       
       if (rankings.totalCharCount < rankings.maxCharCount) {
+        
+        repoCount.push(repo.full_name);
         
         const files = await git.searchFiles(language, repo.full_name);
         
