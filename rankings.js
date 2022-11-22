@@ -185,7 +185,7 @@ let rankings = {
     
     console.timeEnd('Done! Finished in');
     
-    console.log(rankings.totalCharCount + ' chars\n\n' + JSON.stringify(ranking) + '\n\n' + rankings.repoCount.length + ' repos - rankings.repoCount');
+    console.log(rankings.totalCharCount + ' chars\n\n' + JSON.stringify(ranking) + '\n\n' + rankings.repoCount.length + ' repos - see rankings.repoCount');
     
     
     const resp = {
