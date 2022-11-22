@@ -68,7 +68,9 @@ button.addEventListener('click', async () => {
     
     rankings.apiTokens = ['', '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', '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'];
     
-    const resp = await rankings.get('javascript');
+    const language = prompt('Language?');
+    
+    const resp = await rankings.get(language);
     
     button.classList = 'button secondary';
     button.textContent = 'Start ranking';
