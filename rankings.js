@@ -22,13 +22,13 @@ let rankings = {
     
     const repos = await git.searchRepos(language);
     
-    repos.items.asyncForEach(async (repo) => {
+    await repos.items.asyncForEach(async (repo) => {
       
       if (rankings.totalCharCount < rankings.maxCharCount) {
         
         const files = await git.searchFiles(language, repo.full_name);
         
-        files.items.asyncForEach(async (file) => {
+        await files.items.asyncForEach(async (file) => {
           
           const content = await git.getFileContent(file);
           
