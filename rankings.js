@@ -185,8 +185,19 @@ let rankings = {
     
     console.timeEnd('Done! Finished in');
     
-    console.log(rankings.totalCharCount + ' chars\n\n' + JSON.stringify(ranking) + '\n\n' + rankings.repoCount.length + ' repos - see rankings.repoCount');
-    
+    console.log(`
+Code Character Ranking
+
+----------------------------
+Language: `+ language +`
+Sample size: `+ rankings.totalCharCount +`
+Sample diversity: `+ rankings.repoCount.length +`
+----------------------------
+
+`+ JSON.stringify(ranking) + `
+
+`;
+
     
     const resp = {
       ranking: ranking,
