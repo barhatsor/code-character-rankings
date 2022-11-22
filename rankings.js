@@ -1,5 +1,5 @@
 
-// rankings.get('js')
+// await rankings.get('js');
 
 let rankings = {
 
