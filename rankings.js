@@ -67,15 +67,24 @@ let rankings = {
     let pageNum = 1;
     
     
-    await new Promise(async (resolve) => {
+    await new Promise(resolve => {
     
-      let loop = window.setInterval(() => {
+      let loop = window.setInterval(async () => {
         
         if (rankings.totalCharCount < rankings.maxCharCount) {
   
           if (promiseArray.length === 0) {
-  
-            await searchRepos(pageNum);
+            
+            const promise = searchRepos(pageNum);
+            
+            promiseArray.push(promise);
+            
+            await promise;
+            
+            const index = promiseArray.length - 1;
+            
+            // remove promise from array
+            promiseArray.splice(index, 1);
   
             pageNum++;
   
@@ -289,6 +298,15 @@ Array.prototype.asyncForEach = async function(options, callback) {
       const promise = callback(array[index], index, array);
       
       if (options.promiseArray) options.promiseArray.push(promise);
+      
+      const index = options.promiseArray.length - 1;
+      
+      promise.then(() => {
+        
+        // remove promise from array
+        options.promiseArray.splice(index, 1);
+        
+      });
       
     } else {
       
