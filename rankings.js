@@ -19,7 +19,7 @@ let rankings = {
   
   maxCharCount: 30000000, // 30 mil
   
-  maxRepoCharCount: 10000000 / 10000, // 1 thousand
+  maxRepoCharCount: 10000, // 10 thousand
   
   charCount: {},
   
