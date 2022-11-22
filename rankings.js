@@ -57,6 +57,10 @@ let rankings = {
     
     console.time('Time');
     
+    console.clear();
+    console.log('0% / 0');
+    console.log('[' + '-'.repeat(20) + ']');
+    
     
     let pageNum = 1;
     
