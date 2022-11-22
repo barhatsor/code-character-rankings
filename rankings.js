@@ -55,7 +55,7 @@ let rankings = {
     }
     
     
-    console.time('ranking');
+    console.time('Done! Finished in');
     
     
     let pageNum = 1;
@@ -183,6 +183,8 @@ let rankings = {
     
     console.clear();
     
+    console.timeEnd('Done! Finished in');
+    
     console.log(rankings.totalCharCount + ' chars\n\n' + JSON.stringify(ranking) + '\n\nrepos:\n\n' +  JSON.stringify(rankings.repoCount))    
     
     
@@ -194,8 +196,6 @@ let rankings = {
     };
     
     console.log(resp);
-    
-    console.timeEnd('ranking');
     
     return resp;
     
