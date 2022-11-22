@@ -92,6 +92,16 @@ p {
   transition: none;
 }
 
+.button.secondary:hover {
+  background: hsl(223deg 85% 54%);
+  transition: none;
+}
+
+.button.teritary:hover {
+  background: hsl(228deg 16% 37% / 12%);
+  transition: none;
+}
+
 .button svg {
   margin-right: var(--spacing-1);
 }
