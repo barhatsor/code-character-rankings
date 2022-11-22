@@ -91,7 +91,7 @@ p {
   transition: none;
 }
 
-.sidebar .button svg {
+.button svg {
   margin-right: var(--spacing-1);
 }
 
