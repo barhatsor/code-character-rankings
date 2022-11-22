@@ -271,8 +271,9 @@ let axios = {
             } catch (e) {}
           }
         };
-
+        
         xmlhttp.open('GET', url, true);
+        xmlhttp.timeout = 4000;
         xmlhttp.send();
       } catch (e) {
         reject(e)
