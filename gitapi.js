@@ -44,7 +44,7 @@ let git = {
     query += '/' + repoName + '/' + branch + '/' + file.path;
   
     // get the query
-    const resp = await axios.get(query, gitToken, true);
+    const resp = await axios.get(query, '', true);
     
     return resp;
         
