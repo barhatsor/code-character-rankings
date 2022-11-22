@@ -61,14 +61,21 @@ let rankings = {
     console.log('Searching repositories...');
     
     
+    let promiseArray = [];
+    
+    
     let pageNum = 1;
     
     while (rankings.totalCharCount < rankings.maxCharCount) {
-    
-      await searchRepos(pageNum);
-      
-      pageNum++;
-      
+
+      if (promiseArray.length === 0) {
+
+        await searchRepos(pageNum);
+
+        pageNum++;
+
+      }
+
     }
     
     
@@ -77,7 +84,7 @@ let rankings = {
       
       let repos = await gitRequest(git.searchRepos, [language, page]);
       
-      await repos.items.asyncForEach(async (repo) => {
+      repos.items.asyncForEach({promiseArray}, async (repo) => {
         
         if (rankings.totalCharCount < rankings.maxCharCount) {
           
@@ -87,7 +94,7 @@ let rankings = {
           
           let repoCharCount = 0;
           
-          await files.items.asyncForEach(async (file) => {
+          files.items.asyncForEach({promiseArray}, async (file) => {
             
             if ((rankings.totalCharCount < rankings.maxCharCount) ||
                 (repoCharCount < rankings.maxRepoCharCount)) {
@@ -97,14 +104,8 @@ let rankings = {
               
               // if stopped ranking, return
               if (rankings.maxCharCount === 0) return;
-              
-              const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
-              
-              console.clear();
-              console.log(percent + '% / ' + rankings.totalCharCount);
-              console.log('[' + '■'.repeat(Math.floor(percent / 5)) + '-'.repeat(20 - Math.floor(percent / 5)) + ']');
-              console.log(repo.full_name);
-              console.log('﹂' + file.name);
+    
+              rankings.logPercent(repo.full_name, file.name);
               
               
               for (let i = 0; i < content.length; i++) {
@@ -227,6 +228,19 @@ Sample diversity: `+ rankings.repoCount.length +`
     
     return resp;
     
+  },
+  
+  
+  logPercent: (repoName, fileName) => {
+
+    const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
+
+    console.clear();
+    console.log(percent + '% / ' + rankings.totalCharCount);
+    console.log('[' + '■'.repeat(Math.floor(percent / 5)) + '-'.repeat(20 - Math.floor(percent / 5)) + ']');
+    console.log(repoName);
+    console.log('﹂' + fileName);
+
   }
   
 };
@@ -249,13 +263,23 @@ Sample diversity: `+ rankings.repoCount.length +`
 let gitToken = '';
 
 
-Array.prototype.asyncForEach = async function(callback) {
+Array.prototype.asyncForEach = async function(options, callback) {
   
   const array = this;
   
   for (let index = 0; index < array.length; index++) {
     
-    await callback(array[index], index, array);
+    if (!options || (options && !options.sync)) {
+      
+      const promise = callback(array[index], index, array);
+      
+      if (options.promiseArray) options.promiseArray.push(promise);
+      
+    } else {
+      
+      await callback(array[index], index, array);
+      
+    }
     
   }
   
