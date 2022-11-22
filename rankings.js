@@ -3,7 +3,7 @@
  * Code Character Rankings
  *
  * Usage:
- * rankings.apiTokens = ['token1', 'token2']; // backup API tokens
+ * rankings.apiTokens = ['token1', 'backupToken2', 'backupToken3'];
  * const resp = await rankings.get('js');
  *
  * Options (prefix with 'rankings.'):
