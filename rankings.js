@@ -60,6 +60,7 @@ let rankings = {
     console.clear();
     console.log('0% / 0');
     console.log('[' + '-'.repeat(20) + ']');
+    console.log('Searching repos...');
     
     
     let pageNum = 1;
