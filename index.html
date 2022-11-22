@@ -70,6 +70,10 @@ button.addEventListener('click', async () => {
     
     const resp = await rankings.get('javascript');
     
+    button.classList = 'button secondary';
+    
+    button.textContent = 'Start';
+    
   } else {
     
     rankings.maxCharCount = 0;
