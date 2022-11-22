@@ -1,4 +1,6 @@
 
+// rankings.get('js')
+
 let rankings = {
 
   chars: ['.', ',', '=', '(', ')', '"', '_', '\\', '/', '\'', ';', '-', '{', '}', ':', '&', '|', '[', ']', '!', '+', '<', '>', '?', '*', '`', '%', '#', '@', '$', '~', '^'],
@@ -11,7 +13,7 @@ let rankings = {
   
   repoCount: [],
   
-  getRanking: async (language) => {
+  get: async (language) => {
     
     rankings.charCount = {};
     
