@@ -43,8 +43,8 @@ let rankings = {
           console.clear();
           console.log(percent + '%');
           console.log('[' + '■'.repeat(percent / 5) + '-'.repeat((100 - percent) / 5) + ']');
-          console.log('Counting repo ' + repo.full_name);
-          console.log('﹂Counting file ' + file.name);
+          console.log(repo.full_name);
+          console.log('﹂' + file.name);
           
           
           for (let i = 0; i < content.length; i++) {
@@ -75,9 +75,12 @@ let rankings = {
       
     });
     
+    const ranking = Object.entries(rankings.charCount).sort((a, b) => { return b[1] - a[1] });
+    
     return {
-      ranking: rankings.charCount,
+      ranking: ranking,
       repoCount: rankings.repoCount,
+      charCount: rankings.charCount,
       totalCharCount: rankings.totalCharCount
     };
     
