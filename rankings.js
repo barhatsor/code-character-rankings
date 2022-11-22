@@ -210,6 +210,8 @@ Sample diversity: `+ rankings.repoCount.length +`
 
 `+ JSON.stringify(ranking) + `
 
+`+ JSON.stringify(rankingNoCount) + `
+
 `);
 
     console.timeEnd('Time');
