@@ -5,7 +5,9 @@ let rankings = {
 
   chars: ['.', ',', '=', '(', ')', '"', '_', '\\', '/', '\'', ';', '-', '{', '}', ':', '&', '|', '[', ']', '!', '+', '<', '>', '?', '*', '`', '%', '#', '@', '$', '~', '^'],
   
-  maxCharCount: 1000000, // 1 mil
+  maxCharCount: 100000000, // 100 mil
+  
+  maxRepoCharCount: 100000000/10000, // 10 thousand
   
   charCount: {},
   
@@ -35,43 +37,60 @@ let rankings = {
         
         const files = await git.searchFiles(language, repo.full_name);
         
+        let repoCharCount = 0;
+        
         await files.items.asyncForEach(async (file) => {
           
-          const content = await git.getFileContent(file);
-          
-          
-          const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
-          
-          console.clear();
-          console.log(percent + '%');
-          console.log('[' + '■'.repeat(percent / 5) + '-'.repeat((100 - percent) / 5) + ']');
-          console.log(repo.full_name);
-          console.log('﹂' + file.name);
-          
-          
-          for (let i = 0; i < content.length; i++) {
+          if ((rankings.totalCharCount < rankings.maxCharCount) ||
+              (repoCharCount < rankings.maxRepoCharCount)) {
             
-            if (rankings.totalCharCount < rankings.maxCharCount) {
+            const content = await git.getFileContent(file);
+            
+            
+            const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
+            
+            console.clear();
+            console.log(percent + '%');
+            console.log('[' + '■'.repeat(percent / 5) + '-'.repeat((100 - percent) / 5) + ']');
+            console.log(repo.full_name);
+            console.log('﹂' + file.name);
+            
+            
+            for (let i = 0; i < content.length; i++) {
               
-              const char = content[i];
-              
-              if (rankings.chars.includes(char)) {
+              if ((rankings.totalCharCount < rankings.maxCharCount) ||
+                  (repoCharCount < rankings.maxRepoCharCount)) {
                 
-                rankings.charCount[char] += 1;
+                const char = content[i];
+                
+                if (rankings.chars.includes(char)) {
+                  
+                  rankings.charCount[char] += 1;
+                  
+                }
+  
+                repoCharCount++;              
+                rankings.totalCharCount++;
+                
+              } else {
+                
+                return;
                 
               }
               
-              rankings.totalCharCount++;
-              
-            } else {
-              
-              return;
-              
             }
             
+          } else {
+            
+            return;
+            
           }
-          
+            
         });
+        
+      } else {
+        
+        return;
         
       }
       
