@@ -1,5 +1,12 @@
 
-// await rankings.get('js');
+/*
+ * Code Character Rankings
+ *
+ * Usage:
+ * rankings.apiTokens = ['token1', 'token2'];
+ * await rankings.get('js');
+ *
+ */
 
 let rankings = {
 
