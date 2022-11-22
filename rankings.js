@@ -48,6 +48,10 @@ let rankings = {
       
       gitToken = '';
       
+    } else {
+    
+      gitToken = rankings.apiTokens[rankings.apiTokenIndex];
+      
     }
     
     
