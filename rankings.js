@@ -67,7 +67,7 @@ let rankings = {
     let pageNum = 1;
     
     
-    await new Promise(resolve => {
+    await new Promise(async (resolve) => {
     
       let loop = window.setInterval(() => {
         
