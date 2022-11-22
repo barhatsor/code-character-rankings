@@ -96,7 +96,7 @@ let rankings = {
               
               console.clear();
               console.log(percent + '% / ' + rankings.totalCharCount);
-              console.log('[' + '■'.repeat(percent / 5) + '-'.repeat(20 - percent / 5) + ']');
+              console.log('[' + '■'.repeat(Math.floor(percent / 5)) + '-'.repeat(20 - Math.floor(percent / 5)) + ']');
               console.log(repo.full_name);
               console.log('﹂' + file.name);
               
