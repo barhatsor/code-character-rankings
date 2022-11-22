@@ -20,6 +20,7 @@ let rankings = {
     })
     
     rankings.totalCharCount = 0;
+    rankings.repoCount = [];
     
     
     const repos = await git.searchRepos(language);
@@ -28,7 +29,7 @@ let rankings = {
       
       if (rankings.totalCharCount < rankings.maxCharCount) {
         
-        repoCount.push(repo.full_name);
+        rankings.repoCount.push(repo.full_name);
         
         const files = await git.searchFiles(language, repo.full_name);
         
@@ -74,7 +75,11 @@ let rankings = {
       
     });
     
-    return rankings.charCount;
+    return {
+      ranking: rankings.charCount,
+      repoCount: rankings.repoCount,
+      totalCharCount: rankings.totalCharCount
+    };
     
   }
   
