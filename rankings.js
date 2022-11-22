@@ -55,7 +55,7 @@ let rankings = {
     }
     
     
-    console.time('Done! Finished in');
+    console.time('Time');
     
     
     let pageNum = 1;
@@ -180,11 +180,16 @@ let rankings = {
     
     const ranking = Object.entries(rankings.charCount).sort((a, b) => { return b[1] - a[1] });
     
+    const resp = {
+      ranking: ranking,
+      repoCount: rankings.repoCount,
+      charCount: rankings.charCount,
+      totalCharCount: rankings.totalCharCount
+    };
+    
     
     console.clear();
-    
-    console.timeEnd('Done! Finished in');
-    
+        
     console.log(`
 Code Character Ranking
 
@@ -198,15 +203,10 @@ Sample diversity: `+ rankings.repoCount.length +`
 
 `);
 
+    console.timeEnd('Time');
     
-    const resp = {
-      ranking: ranking,
-      repoCount: rankings.repoCount,
-      charCount: rankings.charCount,
-      totalCharCount: rankings.totalCharCount
-    };
-    
-    console.log(resp);
+    console.log('Stats:', resp);
+
     
     return resp;
     
