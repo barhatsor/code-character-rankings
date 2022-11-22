@@ -285,6 +285,7 @@ let axios = {
         
         xmlhttp.open('GET', url, true);
         xmlhttp.timeout = 4000;
+        if (token) xmlhttp.setRequestHeader('Authorization', 'token ' + token);
         xmlhttp.send();
       } catch (e) {
         reject(e)
