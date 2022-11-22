@@ -3,8 +3,13 @@
  * Code Character Rankings
  *
  * Usage:
- * rankings.apiTokens = ['token1', 'token2'];
- * await rankings.get('js');
+ * rankings.apiTokens = ['token1', 'token2']; // backup API tokens
+ * const resp = await rankings.get('js');
+ *
+ * Options (prefix with 'rankings.'):
+ * chars - characters to search for
+ * maxCharCount - total number of characters to sample
+ * maxRepoCharCount - number of characters to sample in each repo (sample diversity)
  *
  */
 
@@ -35,6 +40,19 @@ let rankings = {
     
     rankings.totalCharCount = 0;
     rankings.repoCount = [];
+    
+    
+    if (apiTokens.length === 0) {
+      
+      alert('No backup API keys. If rate limit is exceeded, you won\'t be able to finish ranking.');
+      
+      gitToken = '';
+      
+    } else {
+    
+      gitToken = apiTokens[apiTokenIndex];
+      
+    }
     
     
     let pageNum = 1;
@@ -130,7 +148,20 @@ let rankings = {
       if (resp.message && resp.message.startsWith('API rate limit exceeded')) {
         
         // switch to backup API key
+        
         apiTokenIndex++;
+        
+        // if ran out of backup API keys
+        if (!apiTokens[apiTokenIndex]) {
+          
+          const tokens = prompt('API rate limit exceeded. Please input more API keys.');
+          
+          apiTokens = tokens.split(',');
+          
+          apiTokenIndex = 0;
+          
+        }
+        
         gitToken = apiTokens[apiTokenIndex];
         
         // try the request again
@@ -152,12 +183,16 @@ let rankings = {
     console.log(rankings.totalCharCount + ' chars\n\n' + JSON.stringify(ranking) + '\n\nrepos:\n\n' +  JSON.stringify(rankings.repoCount))    
     
     
-    return {
+    const resp = {
       ranking: ranking,
       repoCount: rankings.repoCount,
       charCount: rankings.charCount,
       totalCharCount: rankings.totalCharCount
     };
+    
+    console.log(resp);
+    
+    return resp;
     
   }
   
