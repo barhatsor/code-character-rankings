@@ -196,7 +196,7 @@ Sample diversity: `+ rankings.repoCount.length +`
 
 `+ JSON.stringify(ranking) + `
 
-`;
+`);
 
     
     const resp = {
