@@ -38,7 +38,7 @@ let rankings = {
           const content = await git.getFileContent(file);
           
           
-          const percent = rankings.totalCharCount / rankings.maxCharCount * 100;
+          const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
           
           console.clear();
           console.log(percent + '%');
