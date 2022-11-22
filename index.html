@@ -61,7 +61,6 @@ button.addEventListener('click', async () => {
   if (button.classList.contains('secondary')) {
     
     button.classList = 'button teritary';
-    
     button.textContent = 'Cancel';
     
     rankings.maxCharCount = 30000000;
@@ -71,7 +70,6 @@ button.addEventListener('click', async () => {
     const resp = await rankings.get('javascript');
     
     button.classList = 'button secondary';
-    
     button.textContent = 'Start';
     
   } else {
@@ -79,7 +77,6 @@ button.addEventListener('click', async () => {
     rankings.maxCharCount = 0;
     
     button.classList = 'button secondary';
-    
     button.textContent = 'Start';
 
   }
