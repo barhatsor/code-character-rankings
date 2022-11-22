@@ -15,6 +15,9 @@ let rankings = {
   
   repoCount: [],
   
+  apiTokens: [], // backup API tokens
+  apiTokenIndex: 0,
+  
   get: async (language) => {
     
     rankings.charCount = {};
@@ -27,74 +30,112 @@ let rankings = {
     rankings.repoCount = [];
     
     
-    const repos = await git.searchRepos(language);
+    let pageNum = 1;
     
-    await repos.items.asyncForEach(async (repo) => {
+    while (rankings.totalCharCount < rankings.maxCharCount) {
+    
+      await searchRepos(pageNum);
       
-      if (rankings.totalCharCount < rankings.maxCharCount) {
+      pageNum++;
+      
+    }
+    
+    
+    
+    async function searchRepos(page) {
+      
+      let repos = await gitRequest(git.searchRepos, [language, page]);
+      
+      await repos.items.asyncForEach(async (repo) => {
         
-        rankings.repoCount.push(repo.full_name);
-        
-        const files = await git.searchFiles(language, repo.full_name);
-        
-        let repoCharCount = 0;
-        
-        await files.items.asyncForEach(async (file) => {
+        if (rankings.totalCharCount < rankings.maxCharCount) {
           
-          if ((rankings.totalCharCount < rankings.maxCharCount) ||
-              (repoCharCount < rankings.maxRepoCharCount)) {
+          rankings.repoCount.push(repo.full_name);
+          
+          const files = await gitRequest(git.searchFiles, [language, repo.full_name]);
+          
+          let repoCharCount = 0;
+          
+          await files.items.asyncForEach(async (file) => {
             
-            const content = await git.getFileContent(file);
-            
-            
-            const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
-            
-            console.clear();
-            console.log(percent + '% / ' + rankings.totalCharCount);
-            console.log('[' + '■'.repeat(percent / 5) + '-'.repeat(20 - percent / 5) + ']');
-            console.log(repo.full_name);
-            console.log('﹂' + file.name);
-            
-            
-            for (let i = 0; i < content.length; i++) {
+            if ((rankings.totalCharCount < rankings.maxCharCount) ||
+                (repoCharCount < rankings.maxRepoCharCount)) {
               
-              if ((rankings.totalCharCount < rankings.maxCharCount) ||
-                  (repoCharCount < rankings.maxRepoCharCount)) {
+              const content = await gitRequest(git.getFileContent, [file]);
+              
+              
+              const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
+              
+              console.clear();
+              console.log(percent + '% / ' + rankings.totalCharCount);
+              console.log('[' + '■'.repeat(percent / 5) + '-'.repeat(20 - percent / 5) + ']');
+              console.log(repo.full_name);
+              console.log('﹂' + file.name);
+              
+              
+              for (let i = 0; i < content.length; i++) {
                 
-                const char = content[i];
-                
-                if (rankings.chars.includes(char)) {
+                if ((rankings.totalCharCount < rankings.maxCharCount) ||
+                    (repoCharCount < rankings.maxRepoCharCount)) {
                   
-                  rankings.charCount[char] += 1;
+                  const char = content[i];
+                  
+                  if (rankings.chars.includes(char)) {
+                    
+                    rankings.charCount[char] += 1;
+                    
+                  }
+    
+                  repoCharCount++;              
+                  rankings.totalCharCount++;
+                  
+                } else {
+                  
+                  return;
                   
                 }
-  
-                repoCharCount++;              
-                rankings.totalCharCount++;
-                
-              } else {
-                
-                return;
                 
               }
               
+            } else {
+              
+              return;
+              
             }
-            
-          } else {
-            
-            return;
-            
-          }
-            
-        });
+              
+          });
+          
+        } else {
+          
+          return;
+          
+        }
         
-      } else {
+      });
+      
+    }
+    
+    
+    async function gitRequest(request, params) {
+      
+      let resp = await request(params[0], params[1], params[2]);
+      
+      if (resp.message && resp.message.startsWith('API rate limit exceeded')) {
         
-        return;
+        // switch to backup API key
+        apiTokenIndex++;
+        gitToken = apiTokens[apiTokenIndex];
+        
+        // try the request again
+        resp = await request(params[0], params[1], params[2]);
         
       }
       
-    });
+      return resp;
+      
+    }
+    
+    
     
     const ranking = Object.entries(rankings.charCount).sort((a, b) => { return b[1] - a[1] });
     
