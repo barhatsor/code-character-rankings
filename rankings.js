@@ -178,10 +178,19 @@ let rankings = {
     
     
     
-    const ranking = Object.entries(rankings.charCount).sort((a, b) => { return b[1] - a[1] });
+    const rankingWithCount = Object.entries(rankings.charCount).sort((a, b) => { return b[1] - a[1] });
+    
+    let ranking = [];
+    
+    rankingWithCount.forEach(char => {
+    
+      ranking.push(char[0]);
+    
+    });
     
     const resp = {
       ranking: ranking,
+      rankingWithCount: rankingWithCount,
       repoCount: rankings.repoCount,
       charCount: rankings.charCount,
       totalCharCount: rankings.totalCharCount
@@ -199,7 +208,7 @@ Sample size: `+ rankings.totalCharCount +`
 Sample diversity: `+ rankings.repoCount.length +`
 ----------------------------
 
-`+ JSON.stringify(ranking) + `
+`+ JSON.stringify(rankingWithCount) + `
 
 `);
 
