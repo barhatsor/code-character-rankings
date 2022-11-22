@@ -66,17 +66,32 @@ let rankings = {
     
     let pageNum = 1;
     
-    while (rankings.totalCharCount < rankings.maxCharCount) {
-
-      if (promiseArray.length === 0) {
-
-        await searchRepos(pageNum);
-
-        pageNum++;
-
-      }
-
-    }
+    
+    await new Promise(resolve => {
+    
+      let loop = window.setInterval(() => {
+        
+        if (rankings.totalCharCount < rankings.maxCharCount) {
+  
+          if (promiseArray.length === 0) {
+  
+            await searchRepos(pageNum);
+  
+            pageNum++;
+  
+          }
+  
+        } else {
+          
+          window.clearInterval(loop);
+          
+          resolve();
+          
+        }
+  
+      }, 20);
+      
+    });
     
     
     
