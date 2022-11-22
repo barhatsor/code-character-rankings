@@ -79,6 +79,8 @@ let rankings = {
     
     const ranking = Object.entries(rankings.charCount).sort((a, b) => { return b[1] - a[1] });
     
+    console.log(rankings.totalCharCount + ' chars\n\n' + JSON.stringify(ranking) + '\n\nrepos:\n\n' +  JSON.stringify(rankings.repoCount))    
+    
     return {
       ranking: ranking,
       repoCount: rankings.repoCount,
