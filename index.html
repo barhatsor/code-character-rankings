@@ -52,6 +52,38 @@ We tallied over a billion characters of open-source code to determine which are 
 <script src="gitapi.js"></script>
 <script src="rankings.js"></script>
 
+<script>
+
+const button = document.querySelector('.button');
+
+button.addEventListener('click', async () => {
+  
+  if (button.classList.contains('secondary')) {
+    
+    button.classList = 'button teritary';
+    
+    button.textContent = 'Cancel';
+    
+    rankings.maxCharCount = 30000000;
+    
+    rankings.apiTokens = ['', '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', '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'];
+    
+    const resp = await rankings.get('javascript');
+    
+  } else {
+    
+    rankings.maxCharCount = 0;
+    
+    button.classList = 'button secondary';
+    
+    button.textContent = 'Start';
+
+  }
+  
+});
+
+</script>
+
 </body>
 </html>
 
