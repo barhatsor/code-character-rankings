@@ -44,6 +44,8 @@ let rankings = {
                 
               }
               
+              rankings.totalCharCount++;
+              
             } else {
               
               return;
