@@ -49,7 +49,7 @@ p {
   line-height: 1.5;
 }
 
-.sidebar .button {
+.button {
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
@@ -67,29 +67,24 @@ p {
   -webkit-user-select: none;
 }
 
-body.mobile .sidebar .button {
-  transition: .1s var(--ease-function);
-  transition-property: background, color, box-shadow;
-}
-
-.sidebar .button.secondary {
+.button.secondary {
   background: hsl(223deg 88% 52%);
   color: #fff;
 }
 
-.sidebar .button.secondary:active {
+.button.secondary:active {
   color: rgba(255,255,255,0.25);
   background: hsla(223deg 88% 52% / 50%) !important;
   transition: none;
 }
 
-.sidebar .button.teritary {
+.button.teritary {
   background: transparent;
   color: hsl(220deg 4% 84% / 92%);
   box-shadow: inset 0 0 0 1px hsl(228deg 16% 37%);
 }
 
-.sidebar .button.teritary:active {
+.button.teritary:active {
   color: hsl(220deg 4% 84% / 25%);
   background: transparent !important;
   box-shadow: inset 0 0 0 1px hsl(228deg 16% 37% / 50%);
