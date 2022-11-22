@@ -7,7 +7,7 @@ let rankings = {
   
   maxCharCount: 100000000, // 100 mil
   
-  maxRepoCharCount: 100000000/10000, // 10 thousand
+  maxRepoCharCount: rankings.maxCharCount / 10000, // 10 thousand
   
   charCount: {},
   
