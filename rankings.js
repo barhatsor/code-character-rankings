@@ -55,6 +55,9 @@ let rankings = {
     }
     
     
+    console.time('ranking');
+    
+    
     let pageNum = 1;
     
     while (rankings.totalCharCount < rankings.maxCharCount) {
@@ -191,6 +194,8 @@ let rankings = {
     };
     
     console.log(resp);
+    
+    console.timeEnd('ranking');
     
     return resp;
     
