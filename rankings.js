@@ -50,7 +50,7 @@ let rankings = {
             const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
             
             console.clear();
-            console.log(percent + '%');
+            console.log(percent + '% / ' + rankings.totalCharCount);
             console.log('[' + '■'.repeat(percent / 5) + '-'.repeat((100 - percent) / 5) + ']');
             console.log(repo.full_name);
             console.log('﹂' + file.name);
