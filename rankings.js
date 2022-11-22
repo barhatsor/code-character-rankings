@@ -55,7 +55,7 @@ let rankings = {
     }
     
     
-    console.time('Time');
+    console.time('time');
     
     console.clear();
     console.log('0% / 0');
@@ -221,9 +221,9 @@ Sample diversity: `+ rankings.repoCount.length +`
 
 `);
 
-    console.timeEnd('Time');
+    console.timeEnd('time');
     
-    console.log('Stats:', resp);
+    console.log('stats:', resp);
 
     
     return resp;
