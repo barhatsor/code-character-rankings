@@ -61,46 +61,15 @@ let rankings = {
     console.log('Searching repositories...');
     
     
-    let promiseArray = [];
-    
-    
     let pageNum = 1;
     
+    while (rankings.totalCharCount < rankings.maxCharCount) {
     
-    await new Promise(resolve => {
-    
-      let loop = window.setInterval(async () => {
-        
-        if (rankings.totalCharCount < rankings.maxCharCount) {
-  
-          if (promiseArray.length === 0) {
-            
-            const promise = searchRepos(pageNum);
-            
-            promiseArray.push(promise);
-            
-            await promise;
-            
-            const promiseIndex = promiseArray.length - 1;
-            
-            // remove promise from array
-            promiseArray.splice(promiseIndex, 1);
-  
-            pageNum++;
-  
-          }
-  
-        } else {
-          
-          window.clearInterval(loop);
-          
-          resolve();
-          
-        }
-  
-      }, 20);
+      await searchRepos(pageNum);
       
-    });
+      pageNum++;
+      
+    }
     
     
     
@@ -108,7 +77,7 @@ let rankings = {
       
       let repos = await gitRequest(git.searchRepos, [language, page]);
       
-      await repos.items.asyncForEach({sync: true}, async (repo) => {
+      await repos.items.asyncForEach(async (repo) => {
         
         if (rankings.totalCharCount < rankings.maxCharCount) {
           
@@ -118,7 +87,7 @@ let rankings = {
           
           let repoCharCount = 0;
           
-          files.items.asyncForEach({promiseArray}, async (file) => {
+          await files.items.asyncForEach(async (file) => {
             
             if ((rankings.totalCharCount < rankings.maxCharCount) ||
                 (repoCharCount < rankings.maxRepoCharCount)) {
@@ -128,8 +97,14 @@ let rankings = {
               
               // if stopped ranking, return
               if (rankings.maxCharCount === 0) return;
-    
-              rankings.logPercent(repo.full_name, file.name);
+              
+              const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
+              
+              console.clear();
+              console.log(percent + '% / ' + rankings.totalCharCount);
+              console.log('[' + '■'.repeat(Math.floor(percent / 5)) + '-'.repeat(20 - Math.floor(percent / 5)) + ']');
+              console.log(repo.full_name);
+              console.log('﹂' + file.name);
               
               
               for (let i = 0; i < content.length; i++) {
@@ -252,19 +227,6 @@ Sample diversity: `+ rankings.repoCount.length +`
     
     return resp;
     
-  },
-  
-  
-  logPercent: (repoName, fileName) => {
-
-    const percent = Math.floor(rankings.totalCharCount / rankings.maxCharCount * 100);
-
-    console.clear();
-    console.log(percent + '% / ' + rankings.totalCharCount);
-    console.log('[' + '■'.repeat(Math.floor(percent / 5)) + '-'.repeat(20 - Math.floor(percent / 5)) + ']');
-    console.log(repoName);
-    console.log('﹂' + fileName);
-
   }
   
 };
@@ -287,32 +249,13 @@ Sample diversity: `+ rankings.repoCount.length +`
 let gitToken = '';
 
 
-Array.prototype.asyncForEach = async function(options, callback) {
+Array.prototype.asyncForEach = async function(callback) {
   
   const array = this;
   
   for (let index = 0; index < array.length; index++) {
     
-    if (!options || (options && !options.sync)) {
-      
-      const promise = callback(array[index], index, array);
-      
-      if (options.promiseArray) options.promiseArray.push(promise);
-      
-      const promiseIndex = options.promiseArray.length - 1;
-      
-      promise.then(() => {
-        
-        // remove promise from array
-        options.promiseArray.splice(promiseIndex, 1);
-        
-      });
-      
-    } else {
-      
-      await callback(array[index], index, array);
-      
-    }
+    await callback(array[index], index, array);
     
   }
   
