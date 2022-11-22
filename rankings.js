@@ -42,7 +42,7 @@ let rankings = {
     rankings.repoCount = [];
     
     
-    if (apiTokens.length === 0) {
+    if (rankings.apiTokens.length === 0) {
       
       alert('No backup API keys. If rate limit is exceeded, you won\'t be able to finish ranking.');
       
@@ -50,7 +50,7 @@ let rankings = {
       
     } else {
     
-      gitToken = apiTokens[apiTokenIndex];
+      gitToken = rankings.apiTokens[apiTokenIndex];
       
     }
     
@@ -156,13 +156,13 @@ let rankings = {
           
           const tokens = prompt('API rate limit exceeded. Please input more API keys.');
           
-          apiTokens = tokens.split(',');
+          rankings.apiTokens = tokens.split(',');
           
           apiTokenIndex = 0;
           
         }
         
-        gitToken = apiTokens[apiTokenIndex];
+        gitToken = rankings.apiTokens[apiTokenIndex];
         
         // try the request again
         resp = await request(params[0], params[1], params[2]);
