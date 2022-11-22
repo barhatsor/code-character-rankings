@@ -172,6 +172,8 @@ let rankings = {
         
         gitToken = rankings.apiTokens[rankings.apiTokenIndex];
         
+        console.log('Switching API key...');
+        
         // try the request again
         resp = await request(params[0], params[1], params[2]);
         
